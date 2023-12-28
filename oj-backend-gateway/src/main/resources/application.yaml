@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: oj-backend-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.106:8848
+    gateway:
+      routes:
+        - id: oj-backend-user-service  #唯一即可
+          uri: lb://oj-backend-user-service  #访问的微服务注册名称、lb开启负载均衡
+          predicates:
+            - Path=/api/user/**  #匹配访问路径，拦截后分发给上面的服务
+        - id: oj-backend-question-service
+          uri: lb://oj-backend-question-service
+          predicates:
+            - Path=/api/question/**
+        - id: oj-backend-judge-service
+          uri: lb://oj-backend-judge-service
+          predicates:
+            - Path=/api/judge/**
+  main:
+    web-application-type: reactive
+server:
+  port: 8101
+
+
+knife4j:
+  gateway:
+    enabled: true
+    # 指定服务发现的模式聚合微服务文档
+    strategy: discover
+    discover:
+      enabled: true
+      # 指定版本号(Swagger2|OpenAPI3)
+      version : swagger2

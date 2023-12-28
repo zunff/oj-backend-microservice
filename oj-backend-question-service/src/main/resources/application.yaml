@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: oj-backend-question-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.106:8848
+  # 默认 dev 环境
+  profiles:
+    active: dev
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # session 配置
+  session:
+    store-type: redis
+    # 30 天过期
+    timeout: 2592000
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oj_db
+    username: root
+    password: 1430
+    # Redis 配置
+  redis:
+    database: 1
+    host: 192.168.1.106
+    port: 6379
+    timeout: 5000
+    password: zhuai666!
+  rabbitmq:
+    host: 192.168.1.106
+    port: 5672
+    username: zhuai
+    password: zhuai666!
+  servlet:
+    multipart:
+      # 大小限制
+      max-file-size: 10MB
+server:
+  address: 0.0.0.0
+  port: 8103
+  servlet:
+    context-path: /api/question
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+        #设置Path，不然会出现Cookie失效
+        path: /api
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false #取消驼峰映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+
+knife4j:
+  enable: true
