@@ -1,5 +1,6 @@
 package com.zun.ojbackendquestionservice.controller;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ import com.zun.ojbackendmodel.model.dto.questionsubmit.QuestionSubmitQueryReques
 import com.zun.ojbackendmodel.model.entity.Question;
 import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
 import com.zun.ojbackendmodel.model.entity.User;
+import com.zun.ojbackendmodel.model.enums.JudgeStrategyEnum;
 import com.zun.ojbackendmodel.model.vo.QuestionSubmitVO;
 import com.zun.ojbackendmodel.model.vo.QuestionVO;
 import com.zun.ojbackendquestionservice.service.QuestionService;
@@ -30,6 +32,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 题目接口
@@ -66,14 +70,29 @@ public class QuestionController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         Question question = new Question();
+        List<JudgeCase> judgeCaseList = questionAddRequest.getJudgeCase();
+        if (judgeCaseList != null) {
+            String judgeStrategy = questionAddRequest.getJudgeStrategy();
+            Pattern inputPattern = Pattern.compile("[^\\s]+(\\s[^\\s]+)*");
+            Pattern outputPattern = Pattern.compile(".*;.*");
+
+            for (JudgeCase judgeCase : judgeCaseList) {
+                //判断输入案例是否合法
+                Matcher inputMatcher = inputPattern.matcher(judgeCase.getInput());
+                ThrowUtils.throwIf(!inputMatcher.matches(), ErrorCode.PARAMS_ERROR, "输入用例格式出错，格式：3 4，注意用例之间的空格");
+                if (StrUtil.equals(judgeStrategy, JudgeStrategyEnum.ANY.getValue())) {
+                    //如果判题策略是范围判题，那么需要判断每一个JudgeCase的输出用例是否合法，格式：3 4
+                    Matcher outputMatcher = outputPattern.matcher(judgeCase.getOutput());
+                    ThrowUtils.throwIf(!outputMatcher.matches(), ErrorCode.PARAMS_ERROR, "输出用例格式出错，格式：3;4，注意答案之间的英文分号");
+                }
+            }
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCaseList));
+        }
+
         BeanUtils.copyProperties(questionAddRequest, question);
         List<String> tags = questionAddRequest.getTags();
         if (tags != null) {
             question.setTags(JSONUtil.toJsonStr(tags));
-        }
-        List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
-        if (judgeCase != null) {
-            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
         }
         JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
         if (judgeConfig != null) {
@@ -131,14 +150,28 @@ public class QuestionController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         Question question = new Question();
+        List<JudgeCase> judgeCaseList = questionUpdateRequest.getJudgeCase();
+        if (judgeCaseList != null) {
+            String judgeStrategy = questionUpdateRequest.getJudgeStrategy();
+            Pattern inputPattern = Pattern.compile("[^\\s]+(\\s[^\\s]+)*");
+            Pattern outputPattern = Pattern.compile(".*;.*");
+
+            for (JudgeCase judgeCase : judgeCaseList) {
+                //判断输入案例是否合法
+                Matcher inputMatcher = inputPattern.matcher(judgeCase.getInput());
+                ThrowUtils.throwIf(!inputMatcher.matches(), ErrorCode.PARAMS_ERROR, "输入用例格式出错，格式：3 4，注意用例之间的空格");
+                if (StrUtil.equals(judgeStrategy, JudgeStrategyEnum.ANY.getValue())) {
+                    //如果判题策略是范围判题，那么需要判断每一个JudgeCase的输出用例是否合法，格式：3 4
+                    Matcher outputMatcher = outputPattern.matcher(judgeCase.getOutput());
+                    ThrowUtils.throwIf(!outputMatcher.matches(), ErrorCode.PARAMS_ERROR, "输出用例格式出错，格式：3;4，注意答案之间的英文分号");
+                }
+            }
+            question.setJudgeCase(JSONUtil.toJsonStr(judgeCaseList));
+        }
         BeanUtils.copyProperties(questionUpdateRequest, question);
         List<String> tags = questionUpdateRequest.getTags();
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
-        }
-        List<JudgeCase> judgeCase = questionUpdateRequest.getJudgeCase();
-        if (judgeCase != null) {
-            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
         }
         JudgeConfig judgeConfig = questionUpdateRequest.getJudgeConfig();
         if (judgeConfig != null) {

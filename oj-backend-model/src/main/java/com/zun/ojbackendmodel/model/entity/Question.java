@@ -60,6 +60,11 @@ public class Question implements Serializable {
     private String judgeConfig;
 
     /**
+     * 判题策略
+     */
+    private String judgeStrategy;
+
+    /**
      * 点赞数
      */
     private Integer thumbNum;

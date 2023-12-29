@@ -15,6 +15,11 @@ public class JudgeContext {
      */
     private ExecuteCodeResponse executeCodeResponse;
 
+    /**i
+     * 测试的的输入用例
+     */
+    private List<String> inputList;
+
     /**
      * 规定的输出用例
      */

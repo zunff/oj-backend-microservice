@@ -61,6 +61,11 @@ public class QuestionVO implements Serializable {
     private List<JudgeCase> judgeCase;
 
     /**
+     * 判题策略
+     */
+    private String judgeStrategy;
+
+    /**
      * 点赞数
      */
     private Integer thumbNum;

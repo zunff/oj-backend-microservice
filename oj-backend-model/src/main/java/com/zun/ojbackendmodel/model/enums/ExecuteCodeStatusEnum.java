@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum ExecuteCodeStatusEum {
+public enum ExecuteCodeStatusEnum {
     SUCCESS("执行成功", 1),
     COMPILE_FAIL("编译失败", 2),
     RUNNING_FAIL("运行失败", 3),
@@ -18,7 +18,7 @@ public enum ExecuteCodeStatusEum {
 
     private final Integer value;
 
-    ExecuteCodeStatusEum(String text, Integer value) {
+    ExecuteCodeStatusEnum(String text, Integer value) {
         this.text = text;
         this.value = value;
     }
@@ -38,11 +38,11 @@ public enum ExecuteCodeStatusEum {
      * @param value
      * @return
      */
-    public static ExecuteCodeStatusEum getEnumByValue(Integer value) {
+    public static ExecuteCodeStatusEnum getEnumByValue(Integer value) {
         if (ObjectUtils.isEmpty(value)) {
             return null;
         }
-        for (ExecuteCodeStatusEum anEnum : ExecuteCodeStatusEum.values()) {
+        for (ExecuteCodeStatusEnum anEnum : ExecuteCodeStatusEnum.values()) {
             if (anEnum.value.equals(value)) {
                 return anEnum;
             }

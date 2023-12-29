@@ -34,6 +34,11 @@ public class QuestionAddRequest implements Serializable {
     private String answer;
 
     /**
+     * 判题策略
+     */
+    private String judgeStrategy;
+
+    /**
      * 判题用例
      */
     private List<JudgeCase> judgeCase;

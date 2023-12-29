@@ -105,7 +105,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 //        });
         DoJudgeRequest doJudgeRequest = new DoJudgeRequest();
         doJudgeRequest.setQuestionSubmitId(questionSubmit.getId());
-        doJudgeRequest.setJudgeStrategy(null);
+        doJudgeRequest.setJudgeStrategy(question.getJudgeStrategy());
         String json = JSONUtil.toJsonStr(doJudgeRequest);
         //使用fanout，不需要routingKey
         messageProducer.sendMessage("code_exchange", "", json);

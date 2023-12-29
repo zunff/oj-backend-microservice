@@ -6,7 +6,7 @@ import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandboxFactory;
-import com.zun.ojbackendjudgeservice.judge.strategy.JudgeStrategyManager;
+import com.zun.ojbackendjudgeservice.judge.strategy.manager.JudgeStrategyManager;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
 import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeRequest;
 import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeResponse;
@@ -17,6 +17,7 @@ import com.zun.ojbackendmodel.model.dto.question.JudgeConfig;
 import com.zun.ojbackendmodel.model.entity.Question;
 import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
 import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
+import com.zun.ojbackendmodel.model.enums.JudgeStrategyEnum;
 import com.zun.ojbackendmodel.model.enums.QuestionSubmitStatusEnum;
 import com.zun.ojbackendserviceclient.service.QuestionFeignClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -80,7 +81,9 @@ public class JudgeServiceImpl implements JudgeService {
         judgeContext.setExecuteCodeResponse(executeCodeResponse);
         judgeContext.setExampleOutputList(exampleOutputList);
         judgeContext.setJudgeConfig(judgeConfig);
-        JudgeInfo judgeInfo = JudgeStrategyManager.doJudge(judgeContext, judgeStrategy == null ? "default" : judgeStrategy);
+        judgeContext.setInputList(inputList);
+        judgeStrategy = judgeStrategy == null ? JudgeStrategyEnum.SAME.getValue() : judgeStrategy;
+        JudgeInfo judgeInfo = JudgeStrategyManager.doJudge(judgeContext, judgeStrategy);
 
         //更新QuestionSubmit数据库执行状态
         updateQuestionSubmit = new QuestionSubmit();
