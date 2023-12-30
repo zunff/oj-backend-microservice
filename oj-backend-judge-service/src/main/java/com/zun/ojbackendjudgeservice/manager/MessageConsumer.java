@@ -37,6 +37,7 @@ public class MessageConsumer {
         DoJudgeRequest doJudgeRequest = JSONUtil.toBean(message, DoJudgeRequest.class);
         try {
             judgeService.doJudge(doJudgeRequest);
+            //如果上面的代码卡死了，导致没有应答，那么交换机就不会把消息发过来了
             channel.basicAck(deliverTag, false);
         } catch (Exception e) {
             //最后一个参数为是否重新塞回队列中，一般来说都不要塞回去，而是存到一个新的队列中

@@ -19,7 +19,7 @@ public class RemoteCodeSandbox implements CodeSandbox {
 
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
-        String url = "http://192.168.1.106:8090/java/native/args";
+        String url = "http://192.168.1.106:8090/java/native/acm";
         String json = JSONUtil.toJsonStr(executeCodeRequest);
         String bodyStr = HttpUtil.createPost(url)
                 .header(AUTH_REQUEST_HEADER, AUTH_REQUEST_SECRET)

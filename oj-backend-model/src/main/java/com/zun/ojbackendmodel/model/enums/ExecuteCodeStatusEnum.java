@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public enum ExecuteCodeStatusEnum {
     SUCCESS("执行成功", 1),
     COMPILE_FAIL("编译失败", 2),
-    RUNNING_FAIL("运行失败", 3),
+    RUNNING_FAIL("运行失败，请检查程序", 3),
     TIMEOUT_FAIL("程序运行时间超出服务规定，请检查程序的合法性！！！", 4),
     NO_AUTH("没有调用权限", 5);
 
