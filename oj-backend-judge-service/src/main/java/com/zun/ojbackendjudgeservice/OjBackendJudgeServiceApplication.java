@@ -17,5 +17,4 @@ public class OjBackendJudgeServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(OjBackendJudgeServiceApplication.class, args);
     }
-
 }

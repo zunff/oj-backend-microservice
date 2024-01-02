@@ -1,6 +1,7 @@
 package com.zun.ojbackendjudgeservice.judge.codesandbox.impl;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.zun.ojbackendcommon.common.ErrorCode;
@@ -21,11 +22,11 @@ public class RemoteCodeSandbox implements CodeSandbox {
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
         String url = "http://192.168.1.106:8090/java/native/acm";
         String json = JSONUtil.toJsonStr(executeCodeRequest);
-        String bodyStr = HttpUtil.createPost(url)
+        HttpResponse httpResponse = HttpUtil.createPost(url)
                 .header(AUTH_REQUEST_HEADER, AUTH_REQUEST_SECRET)
                 .body(json)
-                .execute()
-                .body();
+                .execute();
+        String bodyStr = httpResponse.body();
         if (StrUtil.isBlank(bodyStr)) {
             throw new BusinessException(ErrorCode.API_REQUEST_ERROR);
         }

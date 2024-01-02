@@ -25,7 +25,8 @@ public interface JudgeStrategy {
             if (judgeInfo == null) {
                 judgeInfo = new JudgeInfo();
             }
-            judgeInfo.setMessage(ExecuteCodeStatusEnum.getEnumByValue(status).getText());
+            String message = executeCodeResponse.getMessage();
+            judgeInfo.setMessage(ExecuteCodeStatusEnum.getEnumByValue(status).getText() + (message == null ? "" : ", " + message));
             return judgeInfo;
         }
         //接下来就是程序正常运行，返回了结果，先判断内存和时间是否符合
