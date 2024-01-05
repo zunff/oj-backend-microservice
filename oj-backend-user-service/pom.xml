@@ -46,6 +46,11 @@
             <artifactId>oj-backend-service-client</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!--seata依赖-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

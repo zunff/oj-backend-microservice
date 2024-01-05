@@ -26,6 +26,7 @@ import com.zun.ojbackendquestionservice.service.QuestionService;
 import com.zun.ojbackendquestionservice.service.QuestionSubmitService;
 import com.zun.ojbackendserviceclient.service.JudgeFeignClient;
 import com.zun.ojbackendserviceclient.service.UserFeignClient;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -70,6 +71,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * @return
      */
     @Override
+    @GlobalTransactional
     public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
         //判断编程语言是否合法
         String language = questionSubmitAddRequest.getLanguage();
@@ -95,6 +97,8 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         questionSubmit.setJudgeInfo("{}");
         boolean isSuccess = save(questionSubmit);
         ThrowUtils.throwIf(!isSuccess, ErrorCode.SYSTEM_ERROR, "插入数据失败");
+        isSuccess = questionService.update().setSql("submitNum = submitNum + 1").eq("id", questionId).update();
+        ThrowUtils.throwIf(!isSuccess, ErrorCode.SYSTEM_ERROR, "更新提交数失败");
 
         //异步执行用户提交的代码，策略使用默认策略
 //        CompletableFuture.runAsync(() -> {

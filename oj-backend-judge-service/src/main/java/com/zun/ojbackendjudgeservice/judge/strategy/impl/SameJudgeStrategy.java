@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class SameJudgeStrategy implements JudgeStrategy {
     @Override
-    public JudgeInfo judge(List<String> inputList, List<String> outputList, List<String> exampleOutputList, JudgeInfo judgeInfo) {
+    public void judge(List<String> inputList, List<String> outputList, List<String> exampleOutputList, JudgeInfo judgeInfo) {
         for (int i = 0; i < outputList.size(); i++) {
             String output = outputList.get(i);
             String expect = exampleOutputList.get(i);
@@ -29,10 +29,9 @@ public class SameJudgeStrategy implements JudgeStrategy {
                 sb.append(", expect：").append(expect);
                 sb.append(", but：").append(output);
                 judgeInfo.setMessage(sb.toString());
-                return judgeInfo;
+                return;
             }
         }
         judgeInfo.setMessage(JudgeInfoMessageEnum.ACCEPTED.getValue());
-        return judgeInfo;
     }
 }

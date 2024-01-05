@@ -59,6 +59,25 @@ mybatis-plus:
       logic-delete-field: isDelete # 全局逻辑删除的实体字段名
       logic-delete-value: 1 # 逻辑已删除值（默认为 1）
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
-
+#配置seata的注册中心，告诉seata client怎么去访问seate server(TC)
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.1.106:8848  #seate server所在的nacos服务地址
+      application: seata-server #seate server 的服务名
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP # seate server 所在的组，默认就是SEATA_GROUP，没有改可以不用配置
+  config: # 配置中心
+    type: nacos
+    nacos:
+      server-addr: 192.168.1.106:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+      # 如果是默认空间则可以不用添加
+      namespace: 6c035547-fda4-4f2b-9d39-80e6ae176cda
+  tx-service-group: my_test_tx_group #与seata\script\config-center\config.txt中的一致
 knife4j:
   enable: true

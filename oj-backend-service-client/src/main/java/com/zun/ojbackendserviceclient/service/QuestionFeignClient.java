@@ -26,6 +26,12 @@ public interface QuestionFeignClient {
 
     /**
      * MybatisPlus方法
+     * @return
+     */
+    @PostMapping("/add/accNum")
+    boolean addQuestionAccNum(@RequestParam("id") Long id);
+    /**
+     * MybatisPlus方法
      * @param id
      * @return
      */

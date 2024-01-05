@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 
 import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.exception.BusinessException;
+import com.zun.ojbackendcommon.exception.ThrowUtils;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandboxFactory;
 import com.zun.ojbackendjudgeservice.judge.strategy.manager.JudgeStrategyManager;
@@ -20,6 +21,7 @@ import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
 import com.zun.ojbackendmodel.model.enums.JudgeStrategyEnum;
 import com.zun.ojbackendmodel.model.enums.QuestionSubmitStatusEnum;
 import com.zun.ojbackendserviceclient.service.QuestionFeignClient;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,7 @@ public class JudgeServiceImpl implements JudgeService {
     private QuestionFeignClient questionService;
 
     @Override
+    @GlobalTransactional
     public void doJudge(DoJudgeRequest doJudgeRequest) {
         Long questionSubmitId = doJudgeRequest.getQuestionSubmitId();
         String judgeStrategy = doJudgeRequest.getJudgeStrategy();
@@ -90,6 +93,9 @@ public class JudgeServiceImpl implements JudgeService {
         updateQuestionSubmit.setId(questionSubmit.getId());
         updateQuestionSubmit.setJudgeInfo(JSONUtil.toJsonStr(judgeInfo));
         if (judgeInfo.getMessage().equals(JudgeInfoMessageEnum.ACCEPTED.getValue())) {
+            //如果Acc, 增加题目Acc次数
+            isSuccess = questionService.addQuestionAccNum(questionId);
+            ThrowUtils.throwIf(!isSuccess, ErrorCode.SYSTEM_ERROR, "更新通过数失败");
             updateQuestionSubmit.setStatus(QuestionSubmitStatusEnum.SUCCESS.getValue());
         } else {
             updateQuestionSubmit.setStatus(QuestionSubmitStatusEnum.FAILED.getValue());

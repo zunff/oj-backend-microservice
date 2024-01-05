@@ -44,8 +44,10 @@ public interface JudgeStrategy {
         //判断程序输出是否与预期输出一致
         List<String> outputList = executeCodeResponse.getOutputList();
         List<String> exampleOutputList = judgeContext.getExampleOutputList();
-        return judge(judgeContext.getInputList(), outputList, exampleOutputList, judgeInfo);
+        //判题后的信息会在传入的judgeInfo中修改
+        judge(judgeContext.getInputList(), outputList, exampleOutputList, judgeInfo);
+        return judgeInfo;
     }
 
-    JudgeInfo judge(List<String> inputList, List<String> outputList, List<String> exampleOutputList, JudgeInfo judgeInfo);
+    void judge(List<String> inputList, List<String> outputList, List<String> exampleOutputList, JudgeInfo judgeInfo);
 }

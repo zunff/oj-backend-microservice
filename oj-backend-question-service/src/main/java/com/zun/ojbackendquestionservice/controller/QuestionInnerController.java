@@ -33,6 +33,15 @@ public class QuestionInnerController implements QuestionFeignClient {
 
     /**
      * MybatisPlus方法
+     * @return
+     */
+    @Override
+    public boolean addQuestionAccNum(@RequestParam("id") Long id) {
+        return questionService.update().setSql("acceptedNum = acceptedNum + 1").eq("id", id).update();
+    }
+
+    /**
+     * MybatisPlus方法
      * @param id
      * @return
      */

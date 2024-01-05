@@ -14,7 +14,7 @@ import java.util.List;
 public class AnyJudgeStrategy implements JudgeStrategy {
 
     @Override
-    public JudgeInfo judge(List<String> inputList, List<String> outputList, List<String> exampleOutputList, JudgeInfo judgeInfo) {
+    public void judge(List<String> inputList, List<String> outputList, List<String> exampleOutputList, JudgeInfo judgeInfo) {
         for (int i = 0; i < outputList.size(); i++) {
             String output = outputList.get(i);
             //规定的输出用例时，每一种答案之间用一个英文分号隔开
@@ -34,10 +34,9 @@ public class AnyJudgeStrategy implements JudgeStrategy {
                 sb.append(", expect：").append(expect);
                 sb.append(", but：").append(output);
                 judgeInfo.setMessage(sb.toString());
-                return judgeInfo;
+                return;
             }
         }
         judgeInfo.setMessage(JudgeInfoMessageEnum.ACCEPTED.getValue());
-        return judgeInfo;
     }
 }
