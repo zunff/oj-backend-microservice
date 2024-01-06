@@ -1,9 +1,10 @@
-package com.zun.ojbackendcommon.exception;
+package com.zun.ojbackendcommon.handler;
 
 
 import com.zun.ojbackendcommon.common.BaseResponse;
 import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.common.ResultUtils;
+import com.zun.ojbackendcommon.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
