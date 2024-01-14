@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.zun.ojbackendcommon.common.ErrorCode;
+import com.zun.ojbackendcommon.config.RabbitmqConfig;
 import com.zun.ojbackendcommon.constant.CommonConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
@@ -112,7 +113,8 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         doJudgeRequest.setJudgeStrategy(question.getJudgeStrategy());
         String json = JSONUtil.toJsonStr(doJudgeRequest);
         //使用fanout，不需要routingKey
-        messageProducer.sendMessage("code_exchange", "", json);
+//        messageProducer.sendMessage("code_exchange", "", json);
+        messageProducer.sendMessage(RabbitmqConfig.CODE_SUBMIT_EXCHANGE, "", json);
 
         return questionSubmit.getId();
     }
@@ -190,7 +192,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional
     public int doQuestionSubmitInner(long userId, long questionId) {
         QuestionSubmit questionSubmit = new QuestionSubmit();
         questionSubmit.setUserId(userId);

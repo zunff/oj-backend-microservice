@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.1.106:8848
+        server-addr: 192.168.10.199:8848
   # 默认 dev 环境
   profiles:
     active: dev
@@ -26,12 +26,12 @@ spring:
     # Redis 配置
   redis:
     database: 1
-    host: 192.168.1.106
+    host: 192.168.10.199
     port: 6379
     timeout: 5000
     password: zhuai666!
   rabbitmq:
-    host: 192.168.1.106
+    host: 192.168.10.199
     port: 5672
     username: zhuai
     password: zhuai666!
@@ -69,7 +69,7 @@ seata:
   registry:
     type: nacos
     nacos:
-      server-addr: 192.168.1.106:8848  #seate server所在的nacos服务地址
+      server-addr: 192.168.10.199:8848  #seate server所在的nacos服务地址
       application: seata-server #seate server 的服务名
       username: nacos
       password: nacos
@@ -77,7 +77,7 @@ seata:
   config: # 配置中心
     type: nacos
     nacos:
-      server-addr: 192.168.1.106:8848
+      server-addr: 192.168.10.199:8848
       username: nacos
       password: nacos
       group: SEATA_GROUP

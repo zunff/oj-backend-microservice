@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.1.106:8848
+        server-addr: 192.168.10.199:8848
     gateway:
       routes:
         - id: oj-backend-user-service  #唯一即可

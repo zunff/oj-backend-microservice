@@ -46,11 +46,6 @@
             <artifactId>oj-backend-service-client</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
         <!--seata依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
