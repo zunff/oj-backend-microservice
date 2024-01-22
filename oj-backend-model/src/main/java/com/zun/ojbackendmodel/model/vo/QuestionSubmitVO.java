@@ -1,7 +1,7 @@
 package com.zun.ojbackendmodel.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.zun.ojbackendmodel.model.codesandbox.JudgeInfo;
+import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

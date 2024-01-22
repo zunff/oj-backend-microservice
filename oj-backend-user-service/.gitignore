@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore application-dev.yaml
+/src/main/resources/application-dev.yaml

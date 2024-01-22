@@ -1,0 +1,18 @@
+server:
+  port: 8101
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.10.199:8848
+
+knife4j:
+  gateway:
+    enabled: true
+    # 指定服务发现的模式聚合微服务文档
+    strategy: discover
+    discover:
+      enabled: true
+      # 指定版本号(Swagger2|OpenAPI3)
+      version : swagger2

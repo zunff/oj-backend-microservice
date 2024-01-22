@@ -1,0 +1,16 @@
+server:
+  port: 9000
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.10.199:8848
+    gateway:
+      default-filters:
+        - AddRequestHeader=X-Color-Tag, zjh
+      routes:
+        - id: exec-code-open-api  #唯一即可
+          uri: http://192.168.10.199:8090  #访问的微服务注册名称、lb开启负载均衡
+          predicates:
+            - Path=/open/exec/**  #匹配访问路径，拦截后分发给上面的服务

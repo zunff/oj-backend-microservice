@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    # 默认 dev 环境
+    active: dev
+  application:
+    name: oj-backend-interface-service
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # session 配置
+  session:
+    #分布式Session
+    store-type: redis
+    # 30 天过期
+    timeout: 2592000
+  servlet:
+    multipart:
+      # 大小限制
+      max-file-size: 10MB
+server:
+  servlet:
+    context-path: /api/interface
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+        #设置Path，不然会出现Cookie失效
+        path: /api
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false #取消驼峰映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）

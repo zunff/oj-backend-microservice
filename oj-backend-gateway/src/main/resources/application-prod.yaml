@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        #todo 改
+        server-addr: 192.168.10.199:8848
+server:
+  port: 8101
+knife4j:
+  gateway:
+    enabled: false

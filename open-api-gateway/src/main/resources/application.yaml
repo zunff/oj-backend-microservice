@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    #默认dev环境
+    active: dev
+  application:
+    name: oj-open-api-gateway
+  main:
+    web-application-type: reactive

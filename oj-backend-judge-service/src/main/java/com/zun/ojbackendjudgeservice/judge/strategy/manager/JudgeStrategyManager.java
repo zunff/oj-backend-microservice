@@ -1,11 +1,12 @@
 package com.zun.ojbackendjudgeservice.judge.strategy.manager;
 
 
+import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.strategy.JudgeStrategy;
 import com.zun.ojbackendjudgeservice.judge.strategy.impl.SameJudgeStrategy;
 import com.zun.ojbackendjudgeservice.judge.strategy.impl.AnyJudgeStrategy;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
-import com.zun.ojbackendmodel.model.codesandbox.JudgeInfo;
+
 
 public class JudgeStrategyManager {
 

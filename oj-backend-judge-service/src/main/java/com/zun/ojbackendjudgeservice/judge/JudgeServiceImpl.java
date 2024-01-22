@@ -2,6 +2,9 @@ package com.zun.ojbackendjudgeservice.judge;
 
 import cn.hutool.json.JSONUtil;
 
+import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
+import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
+import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
@@ -9,9 +12,7 @@ import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandboxFactory;
 import com.zun.ojbackendjudgeservice.judge.strategy.manager.JudgeStrategyManager;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeRequest;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeResponse;
-import com.zun.ojbackendmodel.model.codesandbox.JudgeInfo;
+
 import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
 import com.zun.ojbackendmodel.model.dto.question.JudgeCase;
 import com.zun.ojbackendmodel.model.dto.question.JudgeConfig;
@@ -38,6 +39,9 @@ public class JudgeServiceImpl implements JudgeService {
 
     @Resource
     private QuestionFeignClient questionService;
+
+    @Resource
+    private CodeSandboxFactory codeSandboxFactory;
 
     @Override
     @GlobalTransactional
@@ -72,7 +76,7 @@ public class JudgeServiceImpl implements JudgeService {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "更新题目提交状态错误");
         }
         //调用type指定的代码沙箱执行代码
-        CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
+        CodeSandbox codeSandbox = codeSandboxFactory.newInstance(type);
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
         executeCodeRequest.setInputList(inputList);
         executeCodeRequest.setCode(code);

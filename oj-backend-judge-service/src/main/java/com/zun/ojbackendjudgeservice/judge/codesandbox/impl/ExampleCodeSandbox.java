@@ -2,10 +2,10 @@ package com.zun.ojbackendjudgeservice.judge.codesandbox.impl;
 
 
 
+import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
+import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
+import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeRequest;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeResponse;
-import com.zun.ojbackendmodel.model.codesandbox.JudgeInfo;
 import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
 import com.zun.ojbackendmodel.model.enums.QuestionSubmitStatusEnum;
 

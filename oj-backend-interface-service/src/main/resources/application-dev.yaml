@@ -1,0 +1,28 @@
+server:
+  port: 8105
+
+knife4j:
+  enable: true
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.10.199:8848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oj_db
+    username: root
+    password: 1430
+    # Redis 配置
+  redis:
+    database: 1
+    host: 192.168.10.199
+    port: 6379
+    timeout: 5000
+    password: zhuai666!
+  rabbitmq:
+    host: 192.168.10.199
+    port: 5672
+    username: zhuai
+    password: zhuai666!

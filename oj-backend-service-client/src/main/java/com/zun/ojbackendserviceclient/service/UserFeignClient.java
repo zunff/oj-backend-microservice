@@ -101,4 +101,11 @@ public interface UserFeignClient {
     @GetMapping("/list/ids")
     List<User> listByIds(@RequestParam("idList") Collection<Long> idList);
 
+    /**
+     * 根据AccessKey获取用户
+     * @param accessKey
+     * @return
+     */
+    @GetMapping("/get/accessKey")
+    User getByAccessKey(@RequestParam("accessKey") String accessKey);
 }

@@ -1,8 +1,9 @@
 package com.zun.ojbackendjudgeservice.judge.codesandbox;
 
 
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeRequest;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeResponse;
+
+import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
+import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,9 +1,10 @@
 package com.zun.ojbackendjudgeservice.judge.strategy;
 
 
+import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
+import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeResponse;
-import com.zun.ojbackendmodel.model.codesandbox.JudgeInfo;
+
 import com.zun.ojbackendmodel.model.dto.question.JudgeConfig;
 import com.zun.ojbackendmodel.model.enums.ExecuteCodeStatusEnum;
 import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;

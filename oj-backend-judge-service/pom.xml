@@ -51,6 +51,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
+        <!--OJ开放接口sdk-->
+        <dependency>
+            <groupId>com.zun</groupId>
+            <artifactId>oj-api-client-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

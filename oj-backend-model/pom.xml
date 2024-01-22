@@ -21,6 +21,12 @@
             <artifactId>oj-backend-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.zun</groupId>
+            <artifactId>oj-api-client-sdk</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

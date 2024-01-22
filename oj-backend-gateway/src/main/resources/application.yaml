@@ -1,10 +1,10 @@
 spring:
+  profiles:
+    # 默认 dev 环境
+    active: dev
   application:
     name: oj-backend-gateway
   cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.10.199:8848
     gateway:
       routes:
         - id: oj-backend-user-service  #唯一即可
@@ -19,18 +19,9 @@ spring:
           uri: lb://oj-backend-judge-service
           predicates:
             - Path=/api/judge/**
+        - id: oj-backend-interface-service
+          uri: lb://oj-backend-interface-service
+          predicates:
+            - Path=/api/interface/**
   main:
     web-application-type: reactive
-server:
-  port: 8101
-
-
-knife4j:
-  gateway:
-    enabled: true
-    # 指定服务发现的模式聚合微服务文档
-    strategy: discover
-    discover:
-      enabled: true
-      # 指定版本号(Swagger2|OpenAPI3)
-      version : swagger2

@@ -1,9 +1,9 @@
 package com.zun.ojbackendjudgeservice.judge.codesandbox.impl;
 
 
+import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
+import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeRequest;
-import com.zun.ojbackendmodel.model.codesandbox.ExecuteCodeResponse;
 
 /**
  * 调用第三方服务的代码沙箱
