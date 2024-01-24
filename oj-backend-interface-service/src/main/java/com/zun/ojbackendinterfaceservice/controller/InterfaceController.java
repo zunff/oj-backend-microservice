@@ -5,6 +5,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zun.ojapiclientsdk.OjApiClientConfig;
 import com.zun.ojapiclientsdk.client.OjApiClient;
 import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
 import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
@@ -195,6 +196,8 @@ public class InterfaceController {
     }
 
     // endregion
+    @Resource
+    private OjApiClientConfig ojApiClientConfig;
 
     @PostMapping("/online/invoke")
     public BaseResponse<ExecuteCodeResponse> onlineInvokeApi(@RequestBody OnlineInvokeApiRequest onlineInvokeApiRequest, HttpServletRequest request) {
@@ -206,7 +209,11 @@ public class InterfaceController {
         //向网关发送请求
         User loginUser = userService.getLoginUser(request);
         InterfaceInfo interfaceInfo = interfaceInfoService.getById(id);
-        OjApiClient ojApiClient = new OjApiClient(loginUser.getAccessKey(), loginUser.getSecretKey());
+
+        if (ojApiClientConfig == null || StrUtil.isBlank(ojApiClientConfig.getApiGatewayUrl())) {
+            throw new BusinessException(ErrorCode.API_REQUEST_ERROR, "OJ SDK中ApiGatewayUrl为空");
+        }
+        OjApiClient ojApiClient = new OjApiClient(loginUser.getAccessKey(), loginUser.getSecretKey(), ojApiClientConfig.getApiGatewayUrl());
         try {
             HttpResponse httpResponse = HttpRequest.post(interfaceInfo.getUrl())
                     //添加请求头

@@ -8,21 +8,27 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.10.199:8848
+        server-addr: XXXX:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oj_db
-    username: root
-    password: 1430
+    url: jdbc:mysql://XXXX:3306/oj_db
+    username: XXXX
+    password: XXXX
     # Redis 配置
   redis:
     database: 1
-    host: 192.168.10.199
+    host: XXXX
     port: 6379
     timeout: 5000
-    password: zhuai666!
+    password: XXXX
   rabbitmq:
-    host: 192.168.10.199
+    host: XXXX
     port: 5672
-    username: zhuai
-    password: zhuai666!
+    username: XXXX
+    password: XXXX
+
+# Interface模块中，只有用户在线测试用到了sdk，其中ak/sk都是用的用户自己的。只需要填上api网关地址即可
+oj:
+  api:
+    client:
+      api-gateway-url: XXXX:9000

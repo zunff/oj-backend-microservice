@@ -8,32 +8,32 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.10.199:8848
+        server-addr: XXXX:8848
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oj_db
-    username: root
-    password: 1430
+    url: jdbc:mysql://XXXX:3306/oj_db
+    username: XXXX
+    password: XXXX
     # Redis 配置
   redis:
     database: 1
-    host: 192.168.10.199
+    host: XXXX
     port: 6379
     timeout: 5000
-    password: zhuai666!
+    password: XXXX
   rabbitmq:
-    host: 192.168.10.199
+    host: XXXX
     port: 5672
-    username: zhuai
-    password: zhuai666!
+    username: XXXX
+    password: XXXX
 
 #配置seata的注册中心，告诉seata client怎么去访问seate server(TC)
 seata:
   registry:
     type: nacos
     nacos:
-      server-addr: 192.168.10.199:8848  #seate server所在的nacos服务地址
+      server-addr: XXXX:8848  #seate server所在的nacos服务地址
       application: seata-server #seate server 的服务名
       username: nacos
       password: nacos
@@ -41,10 +41,10 @@ seata:
   config: # 配置中心
     type: nacos
     nacos:
-      server-addr: 192.168.10.199:8848
+      server-addr: XXXX:8848
       username: nacos
       password: nacos
-      group: SEATA_GROUP
+      group: XXXX #例：SEATA_GROUP
       # 如果是默认空间则可以不用添加
-      namespace: 6c035547-fda4-4f2b-9d39-80e6ae176cda
-  tx-service-group: my_test_tx_group #与seata\script\config-center\config.txt中的一致
+      namespace: XXXX #例：6c035547-fda4-4f2b-9d39-80e6ae176cda
+  tx-service-group: XXXX #例：my_test_tx_group  与seata\script\config-center\config.txt中的一致
