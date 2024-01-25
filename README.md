@@ -66,7 +66,7 @@
 
 4）`oj-backend-microservice` 项目中，所有**需要启动的微服务模块**复制一份appllication-prod.yaml，命名为appllication-dev.yaml，并在dev中将配置的路径、账号密码改为自己的
 
-- **注意：**prod中是关闭了knife4j文档的，需要手动打开
+- **注意：** prod中是关闭了knife4j文档的，需要手动打开
 
 ![image-20240125150052330](img/image-20240125150052330.png) 
 
