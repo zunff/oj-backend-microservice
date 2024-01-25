@@ -35,6 +35,8 @@
 - Arco Design 组件库
 - vscode 在线代码编辑组件
 - bytedance/bytemd 在线文档组件
+- OpenApi 自动生成调用后端接口的方法
+    - https://github.com/ferdikoomen/openapi-typescript-codegen
 
 **2）后端** 
 
@@ -80,7 +82,22 @@
 
 ![image-20240125150844723](img/image-20240125150844723.png) 
 
+6）如果修改了后端的接口，需要从新生成OpenAPI后端接口调用代码，改了哪个模块对应哪个代码
 
+```shell
+openapi --input http://localhost:8101/api/user/v2/api-docs?group=default  --output ./generated/user --client axios
+openapi --input http://localhost:8101/api/question/v2/api-docs?group=default --output ./generated/question --client axios
+openapi --input http://localhost:8101/api/interface/v2/api-docs?group=default --output ./generated/interface --client axios
+```
+
+接下来修改模块名称/core/OpenApI.ts文件：
+
+1. 取消**BASE**变量的访问地址后缀
+2. **WITH_CREDENTIALS**变量改为**true**，
+
+修改后：
+
+![image-20240125154046140](img/image-20240125154046140.png) 
 
 ## 页面展示
 
