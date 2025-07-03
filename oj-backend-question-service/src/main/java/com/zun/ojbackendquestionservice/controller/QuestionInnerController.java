@@ -1,14 +1,13 @@
 package com.zun.ojbackendquestionservice.controller;
 
-import com.zun.ojbackendmodel.model.entity.Question;
-import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
+import com.zun.ojbackendcommon.model.entity.Question;
+import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
 import com.zun.ojbackendquestionservice.service.QuestionService;
 import com.zun.ojbackendquestionservice.service.QuestionSubmitService;
 import com.zun.ojbackendserviceclient.service.QuestionFeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 
 @RestController
 @RequestMapping("/inner")

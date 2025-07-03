@@ -5,9 +5,9 @@ import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
 import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
 
-import com.zun.ojbackendmodel.model.dto.question.JudgeConfig;
-import com.zun.ojbackendmodel.model.enums.ExecuteCodeStatusEnum;
-import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
+import com.zun.ojbackendcommon.model.qo.question.JudgeConfig;
+import com.zun.ojbackendcommon.model.enums.ExecuteCodeStatusEnum;
+import com.zun.ojbackendcommon.model.enums.JudgeInfoMessageEnum;
 
 import java.util.List;
 

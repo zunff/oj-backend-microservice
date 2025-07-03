@@ -1,7 +1,7 @@
 package com.zun.ojbackendquestionservice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zun.ojbackendmodel.model.entity.Question;
+import com.zun.ojbackendcommon.model.entity.Question;
 
 /**
 * @author ZunF

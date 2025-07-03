@@ -4,11 +4,11 @@ package com.zun.ojbackenduserservice.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zun.ojbackendcommon.constant.UserConstant;
-import com.zun.ojbackendmodel.model.dto.user.UserQueryRequest;
-import com.zun.ojbackendmodel.model.entity.User;
-import com.zun.ojbackendmodel.model.enums.UserRoleEnum;
-import com.zun.ojbackendmodel.model.vo.LoginUserVO;
-import com.zun.ojbackendmodel.model.vo.UserVO;
+import com.zun.ojbackendcommon.model.qo.user.UserQueryRequest;
+import com.zun.ojbackendcommon.model.entity.User;
+import com.zun.ojbackendcommon.model.enums.UserRoleEnum;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
+import com.zun.ojbackendcommon.model.vo.UserVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

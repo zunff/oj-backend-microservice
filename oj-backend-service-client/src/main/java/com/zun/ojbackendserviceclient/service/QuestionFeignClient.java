@@ -1,14 +1,12 @@
 package com.zun.ojbackendserviceclient.service;
 
-import com.zun.ojbackendmodel.model.entity.Question;
-import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
+import com.zun.ojbackendcommon.model.entity.Question;
+import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.io.Serializable;
 
 /**
 * @author ZunF

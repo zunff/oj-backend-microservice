@@ -1,14 +1,12 @@
 package com.zun.ojbackenduserservice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zun.ojbackendmodel.model.entity.User;
+import com.zun.ojbackendcommon.model.entity.User;
 import com.zun.ojbackendserviceclient.service.UserFeignClient;
 import com.zun.ojbackenduserservice.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 

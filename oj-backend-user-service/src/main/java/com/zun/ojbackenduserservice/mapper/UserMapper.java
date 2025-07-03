@@ -1,7 +1,7 @@
 package com.zun.ojbackenduserservice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zun.ojbackendmodel.model.entity.User;
+import com.zun.ojbackendcommon.model.entity.User;
 
 
 /**

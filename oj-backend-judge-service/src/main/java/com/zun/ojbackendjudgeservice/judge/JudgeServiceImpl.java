@@ -13,18 +13,18 @@ import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandboxFactory;
 import com.zun.ojbackendjudgeservice.judge.strategy.manager.JudgeStrategyManager;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
 
-import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
-import com.zun.ojbackendmodel.model.dto.question.JudgeCase;
-import com.zun.ojbackendmodel.model.dto.question.JudgeConfig;
-import com.zun.ojbackendmodel.model.entity.Question;
-import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
-import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
-import com.zun.ojbackendmodel.model.enums.JudgeStrategyEnum;
-import com.zun.ojbackendmodel.model.enums.QuestionSubmitStatusEnum;
+import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
+import com.zun.ojbackendcommon.model.qo.question.JudgeCase;
+import com.zun.ojbackendcommon.model.qo.question.JudgeConfig;
+import com.zun.ojbackendcommon.model.entity.Question;
+import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
+import com.zun.ojbackendcommon.model.enums.JudgeInfoMessageEnum;
+import com.zun.ojbackendcommon.model.enums.JudgeStrategyEnum;
+import com.zun.ojbackendcommon.model.enums.QuestionSubmitStatusEnum;
 import com.zun.ojbackendserviceclient.service.QuestionFeignClient;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -44,7 +44,7 @@ public class JudgeServiceImpl implements JudgeService {
     private CodeSandboxFactory codeSandboxFactory;
 
     @Override
-    @GlobalTransactional
+    @Transactional(rollbackFor = Exception.class)
     public void doJudge(DoJudgeRequest doJudgeRequest) {
         Long questionSubmitId = doJudgeRequest.getQuestionSubmitId();
         String judgeStrategy = doJudgeRequest.getJudgeStrategy();

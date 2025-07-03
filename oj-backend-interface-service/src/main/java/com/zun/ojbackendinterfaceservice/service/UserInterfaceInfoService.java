@@ -1,7 +1,7 @@
 package com.zun.ojbackendinterfaceservice.service;
 
-import com.zun.ojbackendmodel.model.dto.interfaceinfo.InvokeCountRequest;
-import com.zun.ojbackendmodel.model.entity.UserInterfaceInfo;
+import com.zun.ojbackendcommon.model.qo.interfaceinfo.InvokeCountRequest;
+import com.zun.ojbackendcommon.model.entity.UserInterfaceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

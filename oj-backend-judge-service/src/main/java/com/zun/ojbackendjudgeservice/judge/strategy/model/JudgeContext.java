@@ -3,7 +3,7 @@ package com.zun.ojbackendjudgeservice.judge.strategy.model;
 
 
 import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
-import com.zun.ojbackendmodel.model.dto.question.JudgeConfig;
+import com.zun.ojbackendcommon.model.qo.question.JudgeConfig;
 import lombok.Data;
 
 import java.util.List;

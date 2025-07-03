@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zun.ojbackendinterfaceservice.service.InterfaceInfoService;
 import com.zun.ojbackendinterfaceservice.service.UserInterfaceInfoService;
-import com.zun.ojbackendmodel.model.dto.interfaceinfo.InvokeCountRequest;
-import com.zun.ojbackendmodel.model.entity.InterfaceInfo;
-import com.zun.ojbackendmodel.model.entity.UserInterfaceInfo;
+import com.zun.ojbackendcommon.model.qo.interfaceinfo.InvokeCountRequest;
+import com.zun.ojbackendcommon.model.entity.InterfaceInfo;
+import com.zun.ojbackendcommon.model.entity.UserInterfaceInfo;
 import com.zun.ojbackendserviceclient.service.InterfaceFeignClient;
 import org.springframework.web.bind.annotation.*;
 

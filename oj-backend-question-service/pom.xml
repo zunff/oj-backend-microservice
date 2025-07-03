@@ -28,18 +28,8 @@
         </dependency>
         <dependency>
             <groupId>com.zun</groupId>
-            <artifactId>oj-backend-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zun</groupId>
             <artifactId>oj-backend-service-client</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <!--seata依赖-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
     </dependencies>
 

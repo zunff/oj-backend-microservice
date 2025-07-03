@@ -1,6 +1,6 @@
 package com.zun.ojbackendserviceclient.service;
 
-import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
+import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

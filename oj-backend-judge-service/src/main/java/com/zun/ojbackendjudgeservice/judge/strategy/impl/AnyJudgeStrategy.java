@@ -3,7 +3,7 @@ package com.zun.ojbackendjudgeservice.judge.strategy.impl;
 import cn.hutool.core.util.StrUtil;
 import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.strategy.JudgeStrategy;
-import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
+import com.zun.ojbackendcommon.model.enums.JudgeInfoMessageEnum;
 
 import java.util.List;
 

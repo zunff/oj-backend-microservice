@@ -1,9 +1,9 @@
 package com.zun.ojbackendserviceclient.service;
 
 
-import com.zun.ojbackendmodel.model.dto.interfaceinfo.InvokeCountRequest;
-import com.zun.ojbackendmodel.model.entity.InterfaceInfo;
-import com.zun.ojbackendmodel.model.entity.UserInterfaceInfo;
+import com.zun.ojbackendcommon.model.qo.interfaceinfo.InvokeCountRequest;
+import com.zun.ojbackendcommon.model.entity.InterfaceInfo;
+import com.zun.ojbackendcommon.model.entity.UserInterfaceInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

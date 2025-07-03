@@ -1,6 +1,6 @@
 package com.zun.ojbackendjudgeservice.judge;
 
-import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
+import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
 
 public interface JudgeService {
     /**

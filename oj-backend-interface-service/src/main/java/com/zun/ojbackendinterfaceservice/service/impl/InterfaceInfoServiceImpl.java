@@ -1,7 +1,5 @@
 package com.zun.ojbackendinterfaceservice.service.impl;
 
-import java.util.Date;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,14 +10,14 @@ import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
 import com.zun.ojbackendcommon.utils.SqlUtils;
 import com.zun.ojbackendinterfaceservice.service.UserInterfaceInfoService;
-import com.zun.ojbackendmodel.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
-import com.zun.ojbackendmodel.model.entity.InterfaceInfo;
+import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoQueryRequest;
+import com.zun.ojbackendcommon.model.entity.InterfaceInfo;
 import com.zun.ojbackendinterfaceservice.service.InterfaceInfoService;
 import com.zun.ojbackendinterfaceservice.mapper.InterfaceInfoMapper;
-import com.zun.ojbackendmodel.model.entity.User;
-import com.zun.ojbackendmodel.model.entity.UserInterfaceInfo;
-import com.zun.ojbackendmodel.model.vo.InterfaceInfoVO;
-import com.zun.ojbackendmodel.model.vo.UserVO;
+import com.zun.ojbackendcommon.model.entity.User;
+import com.zun.ojbackendcommon.model.entity.UserInterfaceInfo;
+import com.zun.ojbackendcommon.model.vo.InterfaceInfoVO;
+import com.zun.ojbackendcommon.model.vo.UserVO;
 import com.zun.ojbackendserviceclient.service.UserFeignClient;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -28,7 +26,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

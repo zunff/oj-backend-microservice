@@ -11,27 +11,24 @@ import com.zun.ojbackendcommon.constant.CommonConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
 import com.zun.ojbackendcommon.utils.SqlUtils;
-import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
-import com.zun.ojbackendmodel.model.dto.questionsubmit.QuestionSubmitAddRequest;
-import com.zun.ojbackendmodel.model.dto.questionsubmit.QuestionSubmitQueryRequest;
-import com.zun.ojbackendmodel.model.entity.Question;
-import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
-import com.zun.ojbackendmodel.model.entity.User;
-import com.zun.ojbackendmodel.model.enums.QuestionSubmitLanguageEnum;
-import com.zun.ojbackendmodel.model.enums.QuestionSubmitStatusEnum;
-import com.zun.ojbackendmodel.model.vo.QuestionSubmitVO;
-import com.zun.ojbackendmodel.model.vo.QuestionVO;
+import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
+import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitAddRequest;
+import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitQueryRequest;
+import com.zun.ojbackendcommon.model.entity.Question;
+import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
+import com.zun.ojbackendcommon.model.entity.User;
+import com.zun.ojbackendcommon.model.enums.QuestionSubmitLanguageEnum;
+import com.zun.ojbackendcommon.model.enums.QuestionSubmitStatusEnum;
+import com.zun.ojbackendcommon.model.vo.QuestionSubmitVO;
+import com.zun.ojbackendcommon.model.vo.QuestionVO;
 import com.zun.ojbackendquestionservice.manager.MessageProducer;
 import com.zun.ojbackendquestionservice.mapper.QuestionSubmitMapper;
 import com.zun.ojbackendquestionservice.service.QuestionService;
 import com.zun.ojbackendquestionservice.service.QuestionSubmitService;
-import com.zun.ojbackendserviceclient.service.JudgeFeignClient;
 import com.zun.ojbackendserviceclient.service.UserFeignClient;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -72,7 +68,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * @return
      */
     @Override
-    @GlobalTransactional
+    @Transactional(rollbackFor = Exception.class)
     public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
         //判断编程语言是否合法
         String language = questionSubmitAddRequest.getLanguage();
@@ -102,18 +98,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         ThrowUtils.throwIf(!isSuccess, ErrorCode.SYSTEM_ERROR, "更新提交数失败");
 
         //异步执行用户提交的代码，策略使用默认策略
-//        CompletableFuture.runAsync(() -> {
-//            DoJudgeRequest doJudgeRequest = new DoJudgeRequest();
-//            doJudgeRequest.setQuestionSubmitId(questionSubmit.getId());
-//            doJudgeRequest.setJudgeStrategy(null);
-//            judgeFeignClient.doJudge(doJudgeRequest);
-//        });
         DoJudgeRequest doJudgeRequest = new DoJudgeRequest();
         doJudgeRequest.setQuestionSubmitId(questionSubmit.getId());
         doJudgeRequest.setJudgeStrategy(question.getJudgeStrategy());
         String json = JSONUtil.toJsonStr(doJudgeRequest);
         //使用fanout，不需要routingKey
-//        messageProducer.sendMessage("code_exchange", "", json);
         messageProducer.sendMessage(RabbitmqConfig.CODE_SUBMIT_EXCHANGE, "", json);
 
         return questionSubmit.getId();
@@ -192,7 +181,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * @return
      */
     @Override
-    @GlobalTransactional
+    @Transactional(rollbackFor = Exception.class)
     public int doQuestionSubmitInner(long userId, long questionId) {
         QuestionSubmit questionSubmit = new QuestionSubmit();
         questionSubmit.setUserId(userId);

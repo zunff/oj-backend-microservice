@@ -1,6 +1,6 @@
 package com.zun.ojbackendinterfaceservice.mapper;
 
-import com.zun.ojbackendmodel.model.entity.InterfaceInfo;
+import com.zun.ojbackendcommon.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

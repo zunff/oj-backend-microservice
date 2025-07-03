@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.rabbitmq.client.Channel;
 import com.zun.ojbackendcommon.config.RabbitmqConfig;
 import com.zun.ojbackendjudgeservice.judge.JudgeService;
-import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
+import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

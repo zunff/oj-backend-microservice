@@ -8,12 +8,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>oj-backend-common</module>
-        <module>oj-backend-model</module>
-        <module>oj-backend-gateway</module>
+        <module>oj-gateway-backend</module>
         <module>oj-backend-judge-service</module>
         <module>oj-backend-question-service</module>
         <module>oj-backend-service-client</module>
         <module>oj-backend-user-service</module>
+        <module>oj-backend-interface-service</module>
+        <module>oj-gateway-open-api</module>
     </modules>
     <name>oj-backend-microservice</name>
     <description>Demo project for Spring Boot</description>

@@ -1,7 +1,7 @@
 package com.zun.ojbackendjudgeservice.controller;
 
 import com.zun.ojbackendjudgeservice.judge.JudgeService;
-import com.zun.ojbackendmodel.model.dto.judge.DoJudgeRequest;
+import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
 import com.zun.ojbackendserviceclient.service.JudgeFeignClient;
 import org.springframework.web.bind.annotation.*;
 

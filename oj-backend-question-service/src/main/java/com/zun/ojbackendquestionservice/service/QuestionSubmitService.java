@@ -3,11 +3,11 @@ package com.zun.ojbackendquestionservice.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zun.ojbackendmodel.model.dto.questionsubmit.QuestionSubmitAddRequest;
-import com.zun.ojbackendmodel.model.dto.questionsubmit.QuestionSubmitQueryRequest;
-import com.zun.ojbackendmodel.model.entity.QuestionSubmit;
-import com.zun.ojbackendmodel.model.entity.User;
-import com.zun.ojbackendmodel.model.vo.QuestionSubmitVO;
+import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitAddRequest;
+import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitQueryRequest;
+import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
+import com.zun.ojbackendcommon.model.entity.User;
+import com.zun.ojbackendcommon.model.vo.QuestionSubmitVO;
 
 
 import javax.servlet.http.HttpServletRequest;

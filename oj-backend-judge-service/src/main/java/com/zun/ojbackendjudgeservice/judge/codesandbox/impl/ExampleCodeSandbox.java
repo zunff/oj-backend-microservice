@@ -6,8 +6,8 @@ import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
 import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
 import com.zun.ojapiclientsdk.model.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
-import com.zun.ojbackendmodel.model.enums.JudgeInfoMessageEnum;
-import com.zun.ojbackendmodel.model.enums.QuestionSubmitStatusEnum;
+import com.zun.ojbackendcommon.model.enums.JudgeInfoMessageEnum;
+import com.zun.ojbackendcommon.model.enums.QuestionSubmitStatusEnum;
 
 import java.util.List;
 

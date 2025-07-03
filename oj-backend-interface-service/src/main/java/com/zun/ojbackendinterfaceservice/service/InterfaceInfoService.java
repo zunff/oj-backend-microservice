@@ -2,10 +2,10 @@ package com.zun.ojbackendinterfaceservice.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zun.ojbackendmodel.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
-import com.zun.ojbackendmodel.model.entity.InterfaceInfo;
+import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoQueryRequest;
+import com.zun.ojbackendcommon.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zun.ojbackendmodel.model.vo.InterfaceInfoVO;
+import com.zun.ojbackendcommon.model.vo.InterfaceInfoVO;
 
 import javax.servlet.http.HttpServletRequest;
 
