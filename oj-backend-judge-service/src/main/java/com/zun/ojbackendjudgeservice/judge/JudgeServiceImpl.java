@@ -2,12 +2,13 @@ package com.zun.ojbackendjudgeservice.judge;
 
 import cn.hutool.json.JSONUtil;
 
-import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
-import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
-import com.zun.ojapiclientsdk.model.JudgeInfo;
+
 import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
+import com.zun.ojbackendcommon.model.dto.JudgeInfo;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeRequest;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeResponse;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandboxFactory;
 import com.zun.ojbackendjudgeservice.judge.strategy.manager.JudgeStrategyManager;

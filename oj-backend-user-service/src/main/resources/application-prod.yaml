@@ -22,3 +22,12 @@ spring:
     port: 6379
     timeout: 5000
     password: XXXX
+
+captcha:
+  email:
+    from: 没办法<1430119384@qq.com> #换成自己的
+    password: xxxxxxxx
+    host: smtp.qq.com
+    port: 465
+    user: 1430119384@qq.com
+    expire-time: 60 # 60秒

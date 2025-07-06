@@ -40,6 +40,7 @@ create table if not exists question
     acceptedNum int      default 0                 not null comment '题目通过数',
     judgeCase   text                               null comment '判题用例（json字符串）',
     judgeConfig text                               null comment '判题配置（json字符串）',
+    judgeStrategy varchar(128)                       null comment '判题策略',
     thumbNum    int      default 0                 not null comment '点赞数',
     favourNum   int      default 0                 not null comment '收藏数',
     userId      bigint                             not null comment '创建用户 id',
@@ -102,20 +103,3 @@ create table if not exists question_submit
     index idx_questionId (questionId),
     index idx_userId (userId)
 ) comment '题目提交';
-
--- Seata数据库undo日志
-CREATE TABLE `undo_log`
-(
-    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
-    `branch_id`     bigint(20)   NOT NULL,
-    `xid`           varchar(100) NOT NULL,
-    `context`       varchar(128) NOT NULL,
-    `rollback_info` longblob     NOT NULL,
-    `log_status`    int(11)      NOT NULL,
-    `log_created`   datetime     NOT NULL,
-    `log_modified`  datetime     NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = utf8;

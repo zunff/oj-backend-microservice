@@ -2,8 +2,8 @@ package com.zun.ojbackendjudgeservice.judge.strategy.model;
 
 
 
-import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
 import com.zun.ojbackendcommon.model.qo.question.JudgeConfig;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeResponse;
 import lombok.Data;
 
 import java.util.List;

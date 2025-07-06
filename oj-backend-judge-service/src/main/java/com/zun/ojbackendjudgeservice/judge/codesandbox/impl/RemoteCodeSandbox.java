@@ -1,8 +1,14 @@
 package com.zun.ojbackendjudgeservice.judge.codesandbox.impl;
 
-import com.zun.ojapiclientsdk.client.OjApiClient;
-import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
-import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
+
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpResponse;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
+import com.zun.ojbackendcommon.common.ErrorCode;
+import com.zun.ojbackendcommon.exception.BusinessException;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeRequest;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeResponse;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
 import org.springframework.stereotype.Component;
 
@@ -14,28 +20,23 @@ import javax.annotation.Resource;
  */
 public class RemoteCodeSandbox implements CodeSandbox {
 
-    private OjApiClient ojApiClient;
+    private String url;
 
-    public RemoteCodeSandbox(OjApiClient ojApiClient) {
-        this.ojApiClient = ojApiClient;
+    public RemoteCodeSandbox(String url) {
+        this.url = url;
     }
 
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
-        //调用自己封装的sdk
-        return ojApiClient.execCodeAcmPattern(executeCodeRequest);
 
-
-//        String url = "http://localhost:9000/open/exec/java/native/acm";
-//        String json = JSONUtil.toJsonStr(executeCodeRequest);
-//        HttpResponse httpResponse = HttpUtil.createPost(url)
-////                .header(AUTH_REQUEST_HEADER, AUTH_REQUEST_SECRET)
-//                .body(json)
-//                .execute();
-//        String bodyStr = httpResponse.body();
-//        if (StrUtil.isBlank(bodyStr)) {
-//            throw new BusinessException(ErrorCode.API_REQUEST_ERROR);
-//        }
-//        return JSONUtil.toBean(bodyStr, ExecuteCodeResponse.class);
+        String json = JSONUtil.toJsonStr(executeCodeRequest);
+        HttpResponse httpResponse = HttpUtil.createPost(url)
+                .body(json)
+                .execute();
+        String bodyStr = httpResponse.body();
+        if (StrUtil.isBlank(bodyStr)) {
+            throw new BusinessException(ErrorCode.API_REQUEST_ERROR);
+        }
+        return JSONUtil.toBean(bodyStr, ExecuteCodeResponse.class);
     }
 }

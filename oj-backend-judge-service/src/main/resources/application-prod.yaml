@@ -48,10 +48,6 @@ seata:
       namespace: XXXX #例：6c035547-fda4-4f2b-9d39-80e6ae176cda
   tx-service-group: XXXX #例：my_test_tx_group  与seata\script\config-center\config.txt中的一致
 
-#判题SDK的ak和sk，填管理员的
-oj:
-  api:
-    client:
-      api-gateway-url: XXXX:9000 #open-api-gateway子模块启动地址
-      access-key: XXXX
-      secret-key: XXXX
+codesandbox:
+  type: remote
+  url: XXXXXX

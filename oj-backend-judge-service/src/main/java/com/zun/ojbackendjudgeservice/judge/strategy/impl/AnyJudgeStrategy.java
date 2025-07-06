@@ -1,7 +1,7 @@
 package com.zun.ojbackendjudgeservice.judge.strategy.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.zun.ojapiclientsdk.model.JudgeInfo;
+import com.zun.ojbackendcommon.model.dto.JudgeInfo;
 import com.zun.ojbackendjudgeservice.judge.strategy.JudgeStrategy;
 import com.zun.ojbackendcommon.model.enums.JudgeInfoMessageEnum;
 

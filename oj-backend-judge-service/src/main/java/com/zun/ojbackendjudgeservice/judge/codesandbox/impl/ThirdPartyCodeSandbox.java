@@ -1,8 +1,9 @@
 package com.zun.ojbackendjudgeservice.judge.codesandbox.impl;
 
 
-import com.zun.ojapiclientsdk.model.ExecuteCodeRequest;
-import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
+
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeRequest;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeResponse;
 import com.zun.ojbackendjudgeservice.judge.codesandbox.CodeSandbox;
 
 /**

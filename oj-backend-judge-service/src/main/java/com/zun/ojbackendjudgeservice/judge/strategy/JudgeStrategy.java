@@ -1,8 +1,8 @@
 package com.zun.ojbackendjudgeservice.judge.strategy;
 
 
-import com.zun.ojapiclientsdk.model.ExecuteCodeResponse;
-import com.zun.ojapiclientsdk.model.JudgeInfo;
+import com.zun.ojbackendcommon.model.dto.JudgeInfo;
+import com.zun.ojbackendjudgeservice.dto.ExecuteCodeResponse;
 import com.zun.ojbackendjudgeservice.judge.strategy.model.JudgeContext;
 
 import com.zun.ojbackendcommon.model.qo.question.JudgeConfig;
