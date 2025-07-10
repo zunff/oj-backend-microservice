@@ -1,12 +1,15 @@
 package com.zun.ojbackenduserservice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zun.ojbackendcommon.constant.UserConstant;
 import com.zun.ojbackendcommon.model.entity.User;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendserviceclient.service.UserFeignClient;
 import com.zun.ojbackenduserservice.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,8 +22,8 @@ public class UserInnerController implements UserFeignClient {
 
     @Override
     @PostMapping("/get/login")
-    public User getLoginUser(@RequestBody User currentUser) {
-        return userService.getLoginUser(currentUser);
+    public LoginUserVO getLoginUser(@RequestBody String token) {
+        return userService.getLoginUser(token);
     }
 
     /**

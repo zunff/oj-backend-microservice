@@ -14,6 +14,7 @@ create table if not exists user
         primary key,
     userAccount  varchar(256)                             not null comment '账号',
     userPassword varchar(512)                             not null comment '密码',
+    email        varchar(512)                             null comment '邮箱',
     unionId      varchar(256)                             null comment '微信开放平台id',
     accessKey    varchar(512)                             null comment '访问密钥',
     secretKey    varchar(512)                             null comment '秘钥',

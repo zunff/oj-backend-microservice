@@ -16,6 +16,7 @@ import com.zun.ojbackendcommon.common.ResultUtils;
 import com.zun.ojbackendcommon.constant.UserConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendinterfaceservice.service.InterfaceInfoService;
 import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoAddRequest;
 import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoQueryRequest;
@@ -65,7 +66,7 @@ public class InterfaceController {
         interfaceInfo.setMethod(interfaceInfoAddRequest.getMethod().toUpperCase());
         BeanUtils.copyProperties(interfaceInfoAddRequest, interfaceInfo);
         interfaceInfoService.validInterfaceInfo(interfaceInfo, true);
-        User loginUser = userService.getLoginUser(request);
+        LoginUserVO loginUser = userService.getLoginUser(request);
         interfaceInfo.setUserId(loginUser.getId());
         boolean result = interfaceInfoService.save(interfaceInfo);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
@@ -85,7 +86,7 @@ public class InterfaceController {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        User user = userService.getLoginUser(request);
+        LoginUserVO user = userService.getLoginUser(request);
         long id = deleteRequest.getId();
         // 判断是否存在
         InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
@@ -206,7 +207,7 @@ public class InterfaceController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         //向网关发送请求
-        User loginUser = userService.getLoginUser(request);
+        LoginUserVO loginUser = userService.getLoginUser(request);
         InterfaceInfo interfaceInfo = interfaceInfoService.getById(id);
 
         if (ojApiClientConfig == null || StrUtil.isBlank(ojApiClientConfig.getApiGatewayUrl())) {

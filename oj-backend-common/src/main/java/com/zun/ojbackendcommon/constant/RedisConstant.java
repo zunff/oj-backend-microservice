@@ -12,4 +12,5 @@ public interface RedisConstant {
      * 验证码缓存
      */
     String CAPTCHA_CODE = "captcha-email:";
+    String USER_LOGIN_KEY = "user-login:";
 }

@@ -7,6 +7,7 @@ import com.zun.ojbackendcommon.constant.UserConstant;
 import com.zun.ojbackendcommon.model.qo.user.UserQueryRequest;
 import com.zun.ojbackendcommon.model.entity.User;
 import com.zun.ojbackendcommon.model.enums.UserRoleEnum;
+import com.zun.ojbackendcommon.model.qo.user.UserRegisterRequest;
 import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.model.vo.UserVO;
 
@@ -23,22 +24,18 @@ public interface UserService extends IService<User> {
     /**
      * 用户注册
      *
-     * @param userAccount   用户账户
-     * @param userPassword  用户密码
-     * @param checkPassword 校验密码
+     * @param userRegisterRequest req
      * @return 新用户 id
      */
-    long userRegister(String userAccount, String userPassword, String checkPassword);
-
+    long userRegister(UserRegisterRequest userRegisterRequest);
     /**
      * 用户登录
      *
      * @param userAccount  用户账户
      * @param userPassword 用户密码
-     * @param request
      * @return 脱敏后的用户信息
      */
-    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
+    String userLogin(String userAccount, String userPassword);
 
     /**
      * 获取当前登录用户
@@ -46,30 +43,9 @@ public interface UserService extends IService<User> {
      * @param request
      * @return
      */
-    User getLoginUser(HttpServletRequest request);
+    LoginUserVO getLoginUser(HttpServletRequest request);
 
-    User getLoginUser(User currentUser);
-
-    /**
-     * 获取当前登录用户（允许未登录）
-     *
-     * @param request
-     * @return
-     */
-    User getLoginUserPermitNull(HttpServletRequest request);
-
-    /**
-     * 是否为管理员
-     *
-     * @param request
-     * @return
-     */
-    default boolean isAdmin(HttpServletRequest request) {
-        // 仅管理员可查询
-        Object userObj = request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        User user = (User) userObj;
-        return isAdmin(user);
-    }
+    LoginUserVO getLoginUser(String token);
 
     /**
      * 是否为管理员

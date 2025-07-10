@@ -10,6 +10,7 @@ import com.zun.ojbackendcommon.config.RabbitmqConfig;
 import com.zun.ojbackendcommon.constant.CommonConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.utils.SqlUtils;
 import com.zun.ojbackendcommon.model.qo.judge.DoJudgeRequest;
 import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitAddRequest;
@@ -69,7 +70,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
+    public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, LoginUserVO loginUser) {
         //判断编程语言是否合法
         String language = questionSubmitAddRequest.getLanguage();
         QuestionSubmitLanguageEnum languageEnum = QuestionSubmitLanguageEnum.getEnumByValue(language);
@@ -139,7 +140,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     }
 
     @Override
-    public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, User loginUser) {
+    public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, LoginUserVO loginUser) {
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
         //关联查询用户信息
         Long userId = questionSubmit.getUserId();
@@ -151,7 +152,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     }
 
     @Override
-    public Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, User loginUser, HttpServletRequest request) {
+    public Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, LoginUserVO loginUser, HttpServletRequest request) {
         List<QuestionSubmit> questionSubmitList = questionSubmitPage.getRecords();
         Page<QuestionSubmitVO> questionSubmitVOPage = new Page<>(questionSubmitPage.getCurrent(), questionSubmitPage.getSize(), questionSubmitPage.getTotal());
         if (CollectionUtils.isEmpty(questionSubmitList)) {

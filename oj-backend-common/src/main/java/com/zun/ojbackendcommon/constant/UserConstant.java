@@ -10,7 +10,7 @@ public interface UserConstant {
     /**
      * 用户登录态键
      */
-    String USER_LOGIN_STATE = "user_login";
+    String USER_LOGIN_TOKEN = "user_login_token";
 
     //  region 权限
 

@@ -9,6 +9,7 @@ import com.zun.ojbackendcommon.constant.CommonConstant;
 import com.zun.ojbackendcommon.constant.UserConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.utils.SqlUtils;
 import com.zun.ojbackendcommon.model.qo.question.QuestionQueryRequest;
 import com.zun.ojbackendcommon.model.entity.Question;
@@ -127,7 +128,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         questionVO.setUserVO(userVO);
 
         //脱敏，如果没有登陆或者不是管理员获取题目，就需要将测试用例隐藏
-        User loginUser = userFeignClient.getLoginUser(request);
+        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
         if (loginUser == null || !loginUser.getUserRole().equals(UserConstant.ADMIN_ROLE)) {
             questionVO.setJudgeCase(null);
             questionVO.setAnswer("");
@@ -137,7 +138,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
     @Override
     public Page<QuestionVO> getQuestionVOPage(Page<Question> questionPage, HttpServletRequest request) {
-        User loginUser = userFeignClient.getLoginUser(request);
+        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
         List<Question> questionList = questionPage.getRecords();
         Page<QuestionVO> questionVOPage = new Page<>(questionPage.getCurrent(), questionPage.getSize(), questionPage.getTotal());
         if (CollectionUtils.isEmpty(questionList)) {

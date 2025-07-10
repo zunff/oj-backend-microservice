@@ -5,7 +5,7 @@ import cn.hutool.extra.mail.MailAccount;
 import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.constant.RedisConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
-import com.zun.ojbackendcommon.utils.RedisUtils;
+import com.zun.ojbackendcommon.manager.RedisManager;
 import com.zun.ojbackendcommon.utils.VerifyCodeUtil;
 import com.zun.ojbackenduserservice.properties.EmailProperties;
 import com.zun.ojbackenduserservice.service.CaptchaService;
@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 验证码接口实现类
@@ -32,7 +33,7 @@ public class CaptchaServiceImpl implements CaptchaService {
     private EmailProperties emailProperties;
 
     @Resource
-    private RedisUtils redisUtils;
+    private RedisManager redisManager;
 
     @Resource
     private TemplateEngine templateEngine;
@@ -82,16 +83,12 @@ public class CaptchaServiceImpl implements CaptchaService {
         // 根据邮箱生成Redis键名
         String redisKey = RedisConstant.CAPTCHA_CODE + email;
         // 尝试从Redis获取现有的验证码
-        Object oldCode = redisUtils.get(redisKey);
+        Object oldCode = redisManager.get(redisKey);
         if (oldCode == null) {
             // 如果验证码不存在，生成新的验证码
             String captcha = VerifyCodeUtil.generateVerifyCode();
             // 将新生成的验证码存储到Redis，并设置过期时间
-            boolean saveResult = redisUtils.set(redisKey, captcha, emailProperties.getExpireTime());
-            if (!saveResult) {
-                // 如果存储失败，抛出异常
-                throw new BusinessException(ErrorCode.SYSTEM_ERROR, "缓存验证码失败");
-            }
+            redisManager.set(redisKey, captcha, emailProperties.getExpireTime(), TimeUnit.SECONDS);
             return captcha;
         } else {
             // 如果验证码存在，报错邮件已经发送到邮箱

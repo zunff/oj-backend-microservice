@@ -19,6 +19,7 @@ import com.zun.ojbackendcommon.model.entity.Question;
 import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
 import com.zun.ojbackendcommon.model.entity.User;
 import com.zun.ojbackendcommon.model.enums.JudgeStrategyEnum;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.model.vo.QuestionSubmitVO;
 import com.zun.ojbackendcommon.model.vo.QuestionVO;
 import com.zun.ojbackendquestionservice.service.QuestionService;
@@ -101,7 +102,7 @@ public class QuestionController {
             question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
         }
         questionService.validQuestion(question, true);
-        User loginUser = userFeignClient.getLoginUser(request);
+        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
         if (loginUser == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
@@ -126,7 +127,7 @@ public class QuestionController {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        User user = userFeignClient.getLoginUser(request);
+        LoginUserVO user = userFeignClient.getLoginUser(request);
         long id = deleteRequest.getId();
         // 判断是否存在
         Question oldQuestion = questionService.getById(id);
@@ -276,7 +277,7 @@ public class QuestionController {
         if (questionQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        User loginUser = userFeignClient.getLoginUser(request);
+        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
         if (loginUser == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
@@ -320,7 +321,7 @@ public class QuestionController {
         }
         // 参数校验
         questionService.validQuestion(question, false);
-        User loginUser = userFeignClient.getLoginUser(request);
+        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
         long id = questionEditRequest.getId();
         // 判断是否存在
         Question oldQuestion = questionService.getById(id);
@@ -348,7 +349,7 @@ public class QuestionController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         // 登录才能提交
-        final User loginUser = userFeignClient.getLoginUser(request);
+        final LoginUserVO loginUser = userFeignClient.getLoginUser(request);
         long result = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(result);
     }

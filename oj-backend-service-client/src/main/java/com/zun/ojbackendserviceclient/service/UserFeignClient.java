@@ -3,6 +3,7 @@ package com.zun.ojbackendserviceclient.service;
 import com.zun.ojbackendcommon.constant.UserConstant;
 import com.zun.ojbackendcommon.model.entity.User;
 import com.zun.ojbackendcommon.model.enums.UserRoleEnum;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.model.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -24,26 +25,24 @@ import java.util.List;
 public interface UserFeignClient {
 
     /**
-     * 获取当前登录用户
+     * 获取登录用户
      *
-     * @param request
-     * @return
+     * @param request request
+     * @return vo
      */
-    default User getLoginUser(@RequestBody HttpServletRequest request) {
-        User user = (User)request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        if (user == null) {
-            return null;
-        }
-        return getLoginUser(user);
+    default LoginUserVO getLoginUser(HttpServletRequest request) {
+        String token = request.getHeader(UserConstant.USER_LOGIN_TOKEN);
+        return getLoginUser(token);
     }
 
     /**
-     * 替换掉request参数
-     * @param currentUser
+     * 获取当前登陆用户
+     *
+     * @param token token
      * @return
      */
     @PostMapping("/get/login")
-    User getLoginUser(@RequestBody User currentUser);
+    LoginUserVO getLoginUser(String token);
 
     /**
      * 是否为管理员
@@ -53,9 +52,8 @@ public interface UserFeignClient {
      */
     default boolean isAdmin(HttpServletRequest request) {
         // 仅管理员可查询
-        Object userObj = request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
-        User user = (User) userObj;
-        return isAdmin(user);
+        LoginUserVO loginUser = getLoginUser(request);
+        return isAdmin(loginUser);
     }
 
     /**
@@ -64,7 +62,7 @@ public interface UserFeignClient {
      * @param user
      * @return
      */
-    default boolean isAdmin(User user) {
+    default boolean isAdmin(LoginUserVO user) {
         return user != null && UserRoleEnum.ADMIN.getValue().equals(user.getUserRole());
     }
 

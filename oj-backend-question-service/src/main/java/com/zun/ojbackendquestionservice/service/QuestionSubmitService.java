@@ -7,6 +7,7 @@ import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitAddRequest;
 import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitQueryRequest;
 import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
 import com.zun.ojbackendcommon.model.entity.User;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.model.vo.QuestionSubmitVO;
 
 
@@ -25,7 +26,7 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      * @param loginUser
      * @return 提交记录id
      */
-    long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser);
+    long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, LoginUserVO loginUser);
 
     /**
      * 获取查询条件
@@ -42,7 +43,7 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      * @param loginUser
      * @return
      */
-    QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, User loginUser);
+    QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, LoginUserVO loginUser);
 
     /**
      * 分页获取题目封装
@@ -51,7 +52,7 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      * @param loginUser
      * @return
      */
-    Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, User loginUser, HttpServletRequest request);
+    Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, LoginUserVO loginUser, HttpServletRequest request);
 
     /**
      * 题目提交（内部服务）

@@ -30,7 +30,6 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
 			DataBuffer dataBuffer = dataBufferFactory.wrap("无权限".getBytes(StandardCharsets.UTF_8));
 			return response.writeWith(Mono.just(dataBuffer));
 	    }
-		//todo 统一权限校验，通过JWT获取登录用户信息，目前是Session存储登录态，这个方法里获取不到那个HttpServletRequest
 		return chain.filter(exchange);
 	}
 
