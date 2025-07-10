@@ -8,11 +8,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  # session 配置
-  session:
-    store-type: redis
-    # 30 天过期
-    timeout: 2592000
   servlet:
     multipart:
       # 大小限制
