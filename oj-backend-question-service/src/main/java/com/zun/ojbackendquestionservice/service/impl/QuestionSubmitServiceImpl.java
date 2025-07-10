@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -140,37 +141,25 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     }
 
     @Override
-    public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, LoginUserVO loginUser) {
+    public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, Question question) {
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
-        //关联查询用户信息
-        Long userId = questionSubmit.getUserId();
-        //脱敏：仅管理员与用户本人可以看到提交信息中的提交的代码和答案
-        if (loginUser == null || userId != loginUser.getId() && !userFeignClient.isAdmin(loginUser)) {
-            questionSubmitVO.setCode("");
-        }
+        QuestionVO questionVO = questionService.getQuestionVO(question);
+        questionSubmitVO.setQuestionVO(questionVO);
         return questionSubmitVO;
     }
 
     @Override
-    public Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, LoginUserVO loginUser, HttpServletRequest request) {
+    public Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage) {
         List<QuestionSubmit> questionSubmitList = questionSubmitPage.getRecords();
         Page<QuestionSubmitVO> questionSubmitVOPage = new Page<>(questionSubmitPage.getCurrent(), questionSubmitPage.getSize(), questionSubmitPage.getTotal());
         if (CollectionUtils.isEmpty(questionSubmitList)) {
             return questionSubmitVOPage;
         }
         Set<Long> questionIdSet = questionSubmitList.stream().map(QuestionSubmit::getQuestionId).collect(Collectors.toSet());
-        Set<Long> userIdSet = questionSubmitList.stream().map(QuestionSubmit::getUserId).collect(Collectors.toSet());
-        Map<Long, List<User>> userIdUserMap = userFeignClient.listByIds(userIdSet).stream().collect(Collectors.groupingBy(User::getId));
-        Map<Long, List<Question>> questionIdQuestionMap = questionService.listByIds(questionIdSet).stream().collect(Collectors.groupingBy(Question::getId));
-        List<QuestionSubmitVO> submitVOS = questionSubmitList.stream().map(questionSubmit -> {
-            QuestionSubmitVO questionSubmitVO = getQuestionSubmitVO(questionSubmit, loginUser);
-            questionSubmitVO.setUserVO(userFeignClient.getUserVO(userIdUserMap.get(questionSubmit.getUserId()).get(0)));
-            Question question = questionIdQuestionMap.get(questionSubmit.getQuestionId()).get(0);
-            QuestionVO questionVO = questionService.getQuestionVO(question, request);
-            questionSubmitVO.setQuestionVO(questionVO);
-            return questionSubmitVO;
-        }).collect(Collectors.toList());
-        questionSubmitVOPage.setRecords(submitVOS);
+        Map<Long, Question> questionMap = questionService.listByIds(questionIdSet).stream()
+                .collect(Collectors.toMap(Question::getId, Function.identity(), (a, b) -> a));
+        List<QuestionSubmitVO> submitVoList = questionSubmitList.stream().map(questionSubmit -> getQuestionSubmitVO(questionSubmit, questionMap.get(questionSubmit.getQuestionId()))).collect(Collectors.toList());
+        questionSubmitVOPage.setRecords(submitVoList);
         return questionSubmitVOPage;
     }
 

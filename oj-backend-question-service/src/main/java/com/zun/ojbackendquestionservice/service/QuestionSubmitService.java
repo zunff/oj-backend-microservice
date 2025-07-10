@@ -3,6 +3,7 @@ package com.zun.ojbackendquestionservice.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zun.ojbackendcommon.model.entity.Question;
 import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitAddRequest;
 import com.zun.ojbackendcommon.model.qo.questionsubmit.QuestionSubmitQueryRequest;
 import com.zun.ojbackendcommon.model.entity.QuestionSubmit;
@@ -12,6 +13,7 @@ import com.zun.ojbackendcommon.model.vo.QuestionSubmitVO;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
 * @author ZunF
@@ -40,19 +42,18 @@ public interface QuestionSubmitService extends IService<QuestionSubmit> {
      * 获取题目封装
      *
      * @param questionSubmit
-     * @param loginUser
+     * @param question
      * @return
      */
-    QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, LoginUserVO loginUser);
+    QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, Question question);
 
     /**
      * 分页获取题目封装
      *
      * @param questionSubmitPage
-     * @param loginUser
      * @return
      */
-    Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage, LoginUserVO loginUser, HttpServletRequest request);
+    Page<QuestionSubmitVO> getQuestionSubmitVOPage(Page<QuestionSubmit> questionSubmitPage);
 
     /**
      * 题目提交（内部服务）

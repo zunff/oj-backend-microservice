@@ -116,7 +116,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
-    public QuestionVO getQuestionVO(Question question, HttpServletRequest request) {
+    public QuestionVO getQuestionVO(Question question) {
         QuestionVO questionVO = QuestionVO.objToVo(question);
         //关联查询用户信息
         Long userId = question.getUserId();
@@ -126,19 +126,11 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         }
         UserVO userVO = userFeignClient.getUserVO(user);
         questionVO.setUserVO(userVO);
-
-        //脱敏，如果没有登陆或者不是管理员获取题目，就需要将测试用例隐藏
-        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
-        if (loginUser == null || !loginUser.getUserRole().equals(UserConstant.ADMIN_ROLE)) {
-            questionVO.setJudgeCase(null);
-            questionVO.setAnswer("");
-        }
         return questionVO;
     }
 
     @Override
-    public Page<QuestionVO> getQuestionVOPage(Page<Question> questionPage, HttpServletRequest request) {
-        LoginUserVO loginUser = userFeignClient.getLoginUser(request);
+    public Page<QuestionVO> getQuestionVOPage(Page<Question> questionPage) {
         List<Question> questionList = questionPage.getRecords();
         Page<QuestionVO> questionVOPage = new Page<>(questionPage.getCurrent(), questionPage.getSize(), questionPage.getTotal());
         if (CollectionUtils.isEmpty(questionList)) {
@@ -157,11 +149,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
                 user = userIdUserListMap.get(userId).get(0);
             }
             questionVO.setUserVO(userFeignClient.getUserVO(user));
-            //脱敏，如果没有登陆或者不是管理员获取题目，就需要将测试用例隐藏
-            if (loginUser == null || !loginUser.getUserRole().equals(UserConstant.ADMIN_ROLE)) {
-                questionVO.setJudgeCase(null);
-                questionVO.setAnswer("");
-            }
             return questionVO;
         }).collect(Collectors.toList());
         questionVOPage.setRecords(questionVOList);

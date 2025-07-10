@@ -1,6 +1,9 @@
 package com.zun.ojbackendserviceclient.service;
 
+import cn.hutool.core.util.StrUtil;
+import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.constant.UserConstant;
+import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.model.entity.User;
 import com.zun.ojbackendcommon.model.enums.UserRoleEnum;
 import com.zun.ojbackendcommon.model.vo.LoginUserVO;
@@ -32,6 +35,9 @@ public interface UserFeignClient {
      */
     default LoginUserVO getLoginUser(HttpServletRequest request) {
         String token = request.getHeader(UserConstant.USER_LOGIN_TOKEN);
+        if (StrUtil.isBlank(token)) {
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+        }
         return getLoginUser(token);
     }
 
