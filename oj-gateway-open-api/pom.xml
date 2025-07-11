@@ -35,6 +35,13 @@
             <artifactId>oj-api-client-sdk</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <!--MacOS中需要特殊配置-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>4.1.84.Final</version> <!-- 与报错中的netty版本一致 -->
+            <classifier>osx-aarch_64</classifier>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

@@ -53,11 +53,6 @@ public class InterfaceInfoVO implements Serializable {
     private String method;
 
     /**
-     * 创建人
-     */
-    private UserVO user;
-
-    /**
      * 剩余调用次数
      */
     private Integer leftNum;

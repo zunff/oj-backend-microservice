@@ -36,7 +36,6 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
      * 获取帖子封装
      *
      * @param post
-     * @param request
      * @return
      */
     InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo post, HttpServletRequest request);
@@ -45,8 +44,7 @@ public interface InterfaceInfoService extends IService<InterfaceInfo> {
      * 分页获取帖子封装
      *
      * @param postPage
-     * @param request
      * @return
      */
-    Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> postPage, HttpServletRequest request);
+    Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> postPage);
 }

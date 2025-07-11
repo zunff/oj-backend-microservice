@@ -16,15 +16,13 @@ import com.zun.ojbackendcommon.common.ResultUtils;
 import com.zun.ojbackendcommon.constant.UserConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
+import com.zun.ojbackendcommon.model.qo.interfaceinfo.*;
 import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendinterfaceservice.service.InterfaceInfoService;
-import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoAddRequest;
-import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoQueryRequest;
-import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoUpdateRequest;
-import com.zun.ojbackendcommon.model.qo.interfaceinfo.OnlineInvokeApiRequest;
 import com.zun.ojbackendcommon.model.entity.InterfaceInfo;
 import com.zun.ojbackendcommon.model.entity.User;
 import com.zun.ojbackendcommon.model.vo.InterfaceInfoVO;
+import com.zun.ojbackendinterfaceservice.service.UserInterfaceInfoService;
 import com.zun.ojbackendserviceclient.service.UserFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -163,19 +161,17 @@ public class InterfaceController {
      * 分页获取列表（封装类）
      *
      * @param interfaceInfoQueryRequest
-     * @param request
      * @return
      */
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest,
-                                                                         HttpServletRequest request) {
+    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoVOByPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest) {
         long current = interfaceInfoQueryRequest.getCurrent();
         long size = interfaceInfoQueryRequest.getPageSize();
         // 限制爬虫
         ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size),
                 interfaceInfoService.getQueryWrapper(interfaceInfoQueryRequest));
-        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage, request));
+        return ResultUtils.success(interfaceInfoService.getInterfaceInfoVOPage(interfaceInfoPage));
     }
 
     /**
@@ -196,6 +192,7 @@ public class InterfaceController {
     }
 
     // endregion
+
     @Resource
     private OjApiClientConfig ojApiClientConfig;
 

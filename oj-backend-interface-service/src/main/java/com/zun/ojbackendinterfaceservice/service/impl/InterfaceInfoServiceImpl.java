@@ -8,6 +8,7 @@ import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.constant.CommonConstant;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.exception.ThrowUtils;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendcommon.utils.SqlUtils;
 import com.zun.ojbackendinterfaceservice.service.UserInterfaceInfoService;
 import com.zun.ojbackendcommon.model.qo.interfaceinfo.InterfaceInfoQueryRequest;
@@ -111,45 +112,34 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
     @Override
     public InterfaceInfoVO getInterfaceInfoVO(InterfaceInfo interfaceInfo, HttpServletRequest request) {
         InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
-        // 1. 关联查询用户信息
-        Long userId = interfaceInfo.getUserId();
-        User user = null;
-        if (userId != null && userId > 0) {
-            user = userService.getById(userId);
-        }
-        UserVO userVO = userService.getUserVO(user);
-        interfaceInfoVO.setUser(userVO);
+        LoginUserVO loginUser = userService.getLoginUser(request);
         //关联查询剩余调用次数
         LambdaQueryWrapper<UserInterfaceInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserInterfaceInfo::getInterfaceId, interfaceInfo.getId());
-        queryWrapper.eq(UserInterfaceInfo::getAccessKey, user.getAccessKey());
+        queryWrapper.eq(UserInterfaceInfo::getAccessKey, loginUser.getAccessKey());
         UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.getOne(queryWrapper);
+        // 第一次调用送点次数
+        if (userInterfaceInfo == null) {
+            userInterfaceInfo = new UserInterfaceInfo();
+            userInterfaceInfo.setInterfaceId(interfaceInfo.getId());
+            userInterfaceInfo.setAccessKey(loginUser.getAccessKey());
+            userInterfaceInfo.setLeftNum(500);
+            userInterfaceInfoService.save(userInterfaceInfo);
+        }
         interfaceInfoVO.setLeftNum(userInterfaceInfo.getLeftNum());
         return interfaceInfoVO;
     }
 
     @Override
-    public Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> interfaceInfoPage, HttpServletRequest request) {
+    public Page<InterfaceInfoVO> getInterfaceInfoVOPage(Page<InterfaceInfo> interfaceInfoPage) {
         List<InterfaceInfo> interfaceInfoList = interfaceInfoPage.getRecords();
         Page<InterfaceInfoVO> interfaceInfoVOPage = new Page<>(interfaceInfoPage.getCurrent(), interfaceInfoPage.getSize(), interfaceInfoPage.getTotal());
         if (CollectionUtils.isEmpty(interfaceInfoList)) {
             return interfaceInfoVOPage;
         }
-        //关联查询用户信息
-        Set<Long> userIdSet = interfaceInfoList.stream().map(InterfaceInfo::getUserId).collect(Collectors.toSet());
-        Map<Long, List<User>> userIdUserListMap = userService.listByIds(userIdSet).stream()
-                .collect(Collectors.groupingBy(User::getId));
         // 填充信息，没查剩余次数
-        List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream().map(interfaceInfo -> {
-            InterfaceInfoVO interfaceInfoVO = InterfaceInfoVO.objToVo(interfaceInfo);
-            Long userId = interfaceInfo.getUserId();
-            User user = null;
-            if (userIdUserListMap.containsKey(userId)) {
-                user = userIdUserListMap.get(userId).get(0);
-            }
-            interfaceInfoVO.setUser(userService.getUserVO(user));
-            return interfaceInfoVO;
-        }).collect(Collectors.toList());
+        List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream()
+                .map(InterfaceInfoVO::objToVo).collect(Collectors.toList());
         interfaceInfoVOPage.setRecords(interfaceInfoVOList);
         return interfaceInfoVOPage;
     }

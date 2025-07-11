@@ -6,9 +6,14 @@ import com.zun.ojbackendcommon.common.ErrorCode;
 import com.zun.ojbackendcommon.exception.BusinessException;
 import com.zun.ojbackendcommon.model.qo.interfaceinfo.InvokeCountRequest;
 import com.zun.ojbackendcommon.model.entity.UserInterfaceInfo;
+import com.zun.ojbackendcommon.model.vo.LoginUserVO;
 import com.zun.ojbackendinterfaceservice.service.UserInterfaceInfoService;
 import com.zun.ojbackendinterfaceservice.mapper.UserInterfaceInfoMapper;
+import com.zun.ojbackendserviceclient.service.UserFeignClient;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ZunF
@@ -17,6 +22,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoMapper, UserInterfaceInfo> implements UserInterfaceInfoService {
+
+    @Resource
+    private UserFeignClient userFeignClient;
 
     @Override
     public boolean invokeCount(InvokeCountRequest invokeCountRequest) {
