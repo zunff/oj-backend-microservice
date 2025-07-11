@@ -15,6 +15,7 @@
         <module>oj-backend-user-service</module>
         <module>oj-backend-interface-service</module>
         <module>oj-gateway-open-api</module>
+        <module>oj-backend-ai-service</module>
     </modules>
     <name>oj-backend-microservice</name>
     <description>Demo project for Spring Boot</description>

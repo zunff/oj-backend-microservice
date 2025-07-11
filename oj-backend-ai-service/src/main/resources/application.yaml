@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: oj-backend-ai-service
+
+server:
+  port: 8106
