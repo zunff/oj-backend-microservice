@@ -59,6 +59,11 @@
 			<artifactId>spring-ai-alibaba-starter</artifactId>
 			<version>1.0.0-M6.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.16.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

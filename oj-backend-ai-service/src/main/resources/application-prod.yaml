@@ -2,3 +2,6 @@ spring:
   ai:
     dashscope:
       api-key: sk-xxxxxxxxx
+
+baidu:
+  api-key: xxxxxxxxx
