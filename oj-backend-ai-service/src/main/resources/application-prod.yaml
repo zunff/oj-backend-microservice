@@ -2,6 +2,17 @@ spring:
   ai:
     dashscope:
       api-key: sk-xxxxxxxxx
-
+      chat:
+        options:
+          model: qwen-plus
+  cloud:
+    nacos:
+      discovery:
+        server-addr: xxxx:8848
+        username: nacos
+        password: xxxxxx
 baidu:
-  api-key: xxxxxxxxx
+  apiKey: xxxxxxxxx
+
+codeSandBox:
+  apiUrl: http://xxxxxx:8090/open/exec/java/native/acm

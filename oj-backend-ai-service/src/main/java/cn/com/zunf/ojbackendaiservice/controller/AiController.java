@@ -10,8 +10,14 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.concurrent.CompletableFuture;
 
+
+/**
+ * AI相关接口
+ *
+ * @author zunf
+ * @date 2025/7/13 23:31
+ */
 @RestController
-@RequestMapping("/ai")
 public class AiController {
     @Resource
     private CreateQuestionAgent createQuestionAgent;

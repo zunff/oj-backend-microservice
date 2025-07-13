@@ -23,5 +23,9 @@ spring:
           uri: lb://oj-backend-interface-service
           predicates:
             - Path=/api/interface/**
+        - id: oj-backend-ai-service
+          uri: lb://oj-backend-ai-service
+          predicates:
+            - Path=/api/ai/**
   main:
     web-application-type: reactive
